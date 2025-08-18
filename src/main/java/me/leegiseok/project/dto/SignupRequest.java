@@ -1,5 +1,6 @@
 package me.leegiseok.project.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class SignupRequest {
 
-    private  String username;
-    private  String password;
-    private  String nickname;
+@NotBlank    private  String username;
+ @NotBlank   private  String password;
+  @NotBlank  private  String nickname;
 }

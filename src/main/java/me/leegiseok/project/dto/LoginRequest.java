@@ -1,10 +1,11 @@
 package me.leegiseok.project.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
 public class LoginRequest {
-    private  String username;
-    private  String password;
+@NotBlank private  String username;
+ @NotBlank   private  String password;
 
 }

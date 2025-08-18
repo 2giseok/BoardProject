@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -23,13 +25,16 @@ public class Article {
     private  String  title;
 
     private  String author;
+    private LocalDateTime createdAt;
 
     public  Article(String title, String content, String author) {
         this.title= title;
         this.content=content;
         this.author=author;
-
+        this.createdAt = LocalDateTime.now();
     }
+
+
 
     public void update(String title, String content) {
         this.title= title;
