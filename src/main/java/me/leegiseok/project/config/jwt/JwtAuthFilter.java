@@ -54,7 +54,9 @@ chain.doFilter(request,response);
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String  p = request.getServletPath();
-        return p.startsWith("/api/auth") || p.startsWith("/swagger-ui") || p.startsWith("/v3/api-docs");
+        return p.startsWith("/api/auth")
+                || p.startsWith("/swagger-ui")
+                || p.startsWith("/v3/api-docs");
 
     }
 }

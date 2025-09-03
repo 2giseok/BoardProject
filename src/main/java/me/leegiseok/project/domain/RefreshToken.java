@@ -17,6 +17,8 @@ public class RefreshToken {
     @Column(nullable = false, unique = true)
     private  String token;
 
+
+
     public RefreshToken update(String newToken) {
         this.token=  newToken;
         return this;

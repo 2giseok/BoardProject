@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: board-mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: board
+      MYSQL_USER: board
+      MYSQL_PASSWORD: board_pw
+      MYSQL_ROOT_PASSWORD: root_pw
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD","mysqladmin","ping","-h","localhost","-proot_pw"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    restart: unless-stopped
