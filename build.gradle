@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.4'
+    id 'jacoco'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -44,6 +45,60 @@ dependencies {
 
 
 }
+jacoco {
+    toolVersion = "0.8.12"
+
+}
 test {
     useJUnitPlatform()
+    systemProperty 'spring.profiles.active', System.getProperty('spring.profiles.active', 'test')
+    finalizedBy jacocoTestReport
 }
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required = true
+        xml.required = true;
+
+    }
+        afterEvaluate {
+            classDirectories.setFrom(files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: [
+                        '**/*Application', '**/config/**', '**/dto/**'
+                ])
+
+            }))
+
+        }
+    }
+
+
+jacocoTestCoverageVerification {
+    violationRules{
+        rule{
+            limit{
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.70
+            }
+        }
+        rule {
+            element = "PACKAGE"
+            includes = [
+                    'me.leegiseok.project.service.*',
+                    'me.leegiseok.project.article.*'
+            ]
+            limit {
+                counter = "BRANCH"
+                value =  "COVEREDRATIO"
+                minimum = 0.60
+            }
+
+
+        }
+    }
+
+}
+check.dependsOn jacocoTestCoverageVerification
+

@@ -22,6 +22,8 @@ public class Article extends BaseTimeEntity {
 
 
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
@@ -39,6 +41,7 @@ private  String deletedBy;
     @Column(nullable = false, updatable = false)
     private  String author;
     @Column(nullable = false)
+    @Builder.Default
     private  boolean deleted = false;
 
 
