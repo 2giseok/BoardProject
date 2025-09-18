@@ -1,6 +1,6 @@
 package me.leegiseok.project;
 
-import me.leegiseok.project.config.jwt.JwtTokenProvider;
+
 import me.leegiseok.project.dto.LoginRequest;
 import me.leegiseok.project.dto.LoginResponse;
 import me.leegiseok.project.dto.RefreshResponse;
@@ -11,6 +11,7 @@ import me.leegiseok.project.repository.RefreshTokenRepository;
 import me.leegiseok.project.repository.UserRepository;
 import me.leegiseok.project.service.AuthService;
 import me.leegiseok.project.service.UserService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,14 +37,22 @@ public class AuthTest {
     @Autowired
     RefreshTokenRepository refreshTokenRepository;
 
-    SignupRequest request = new SignupRequest("user","1234","nickname");
+
+
+    @BeforeEach
+    void setup() {
+        userRepository.deleteAll();
+        SignupRequest request = new SignupRequest("user","1234","nickname");
+        userService.signup(request);
+
+    }
 
 
 
     @Test
     @DisplayName("토큰 발급 성공")
     void token() {
-        userService.signup(request);
+
         LoginRequest loginRequest = new LoginRequest("user","1234");
         LoginResponse loginResponse = userService.login(loginRequest);
 
@@ -60,7 +69,7 @@ public class AuthTest {
     @Test
     @DisplayName("토큰 재발급 후 삭제")
     void refresh() {
-        userService.signup(request);
+
         LoginRequest loginRequest = new LoginRequest("user", "1234");
         LoginResponse loginResponse = userService.login(loginRequest);
 
@@ -80,7 +89,8 @@ public class AuthTest {
     @Test
     @DisplayName("토큰 발급 실패")
     void tokenfail() {
-        userService.signup(request);
+
+
         LoginRequest loginRequest = new LoginRequest("user","1234");
 
 
@@ -96,7 +106,7 @@ public class AuthTest {
     @Test
     @DisplayName("로그아웃")
     void logout() {
-        userService.signup(request);
+
         LoginRequest request1 = new LoginRequest("user","1234");
 
         LoginResponse response=  userService.login(request1);
@@ -111,7 +121,7 @@ public class AuthTest {
     @Test
     @DisplayName("전체 로그아웃")
     void alllogout() {
-        userService.signup(request);
+
 
         LoginRequest request1 = new LoginRequest("user", "1234");
         LoginResponse response = userService.login(request1);
@@ -134,7 +144,7 @@ public class AuthTest {
     @Test
     @DisplayName("토큰 소멸 확인 ")
     void otherlogout() {
-        userService.signup(request);
+
 
         LoginRequest request1 = new LoginRequest("user","1234");
         LoginResponse response = userService.login(request1);

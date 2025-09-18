@@ -1,5 +1,6 @@
 package me.leegiseok.project;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.leegiseok.project.config.jwt.JwtAuthFilter;
 import me.leegiseok.project.config.jwt.JwtTokenProvider;
@@ -24,7 +25,7 @@ import java.security.Principal;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -111,8 +112,20 @@ public class ArticleControllerTest {
 
     }
     @Test
-    @DisplayName("검증 실패")
-    void  create400error() {
+    @DisplayName("빈값 검증 실패 ")
+    void  create400error() throws Exception {
+        var request = new UpdateArticleRequest("","");
+
+        mockMvc.perform(patch("/api/articles/{id}",1L)
+                .principal(() -> "Leegiseok")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+
+        verify(articleService, never()).update(anyLong(),any(UpdateArticleRequest.class),anyString());
+
+
 
     }
 
