@@ -1,11 +1,13 @@
 package me.leegiseok.project.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.leegiseok.project.domain.Article;
 
 import java.time.LocalDateTime;
 
 @Getter
+@AllArgsConstructor
 public class ArticleResponse {
     private  final Long id;
     private  final String  title;

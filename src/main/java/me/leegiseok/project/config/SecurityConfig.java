@@ -7,6 +7,7 @@ import me.leegiseok.project.config.jwt.JwtTokenProvider;
 import me.leegiseok.project.config.security.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -43,7 +44,15 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(reg -> reg
-                        .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**","/swagger-ui.html").permitAll()
+                        .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**","/swagger-ui.html",
+                                "/login","/signup",
+                        "/css/**","/js/**","/images/**", "/favicon.ico").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/articles/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/articles/**").permitAll()
+
+                        .requestMatchers(HttpMethod.POST,"/api/articles/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/articles/**").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/api/articles/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

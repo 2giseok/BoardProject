@@ -49,6 +49,9 @@ public class ArticlesApiController {
     @GetMapping("/{id}")
     public  ResponseEntity<ArticleResponse> get(@PathVariable Long id) {
         var article = articleService.findById(id);
+        if( article ==null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(new ArticleResponse(article));
     }
     @Operation(summary =  "글 목록", description = "페이지 정렬(추가 예정 기본은 최신순),검색 기능 ( 추가 예정 )  지원 " )

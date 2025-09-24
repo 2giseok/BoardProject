@@ -6,17 +6,18 @@
 </head>
 <body>
  <h1> 새 글 작성</h1>
-<form th:action="@{/articles/new}" method="post">
+<form id = "article-form" novalidate>
 <label>제목</label><br>
-    <input type="text" name ="title"/><br><br>
+    <input id = "title" type="text" name ="title"/><br><br>
 
 
     <label>내용 :</label><br>
-    <textarea name="content" rows="10" cols="50"></textarea><br><br>
+    <textarea id="content" name="content" rows="10" cols="50"></textarea><br><br>
 
     <button type="submit">작성</button>
 
 </form>
-<a th:href="@{/articles/list}">목록으로</a>
+<a th:href="@{/articles}">목록으로</a>
+<script th:src="@{/js/article-new.js}"></script>
 </body>
 </html>

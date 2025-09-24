@@ -1,20 +1,24 @@
 package me.leegiseok.project.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.leegiseok.project.dto.AddArticleRequest;
 import me.leegiseok.project.dto.ArticleResponse;
+import me.leegiseok.project.repository.UserRepository;
 import me.leegiseok.project.service.ArticleService;
+import me.leegiseok.project.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/articles")
 public class ArticleViewController {
     private final ArticleService articleService;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
     @GetMapping
     public  String list(Model model) {
@@ -30,4 +34,21 @@ public class ArticleViewController {
         model.addAttribute("article", article);
         return "articles/detail";
     }
+
+    @GetMapping("/new")
+    public  String newPost(Model model) {
+        return "articles/new";
+
+    }
+
+    /*@PostMapping("/new")
+    public  String createPost(@ModelAttribute AddArticleRequest request,  Principal principal) {
+
+        if(principal ==null) return "redirect:/login";
+
+        articleService.save(request, principal.getName());
+        return  "redirect:/articles";
+
+    } */
+    
 }

@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1> 게시판 목록 </h1>
+<button id ="logout-btn" type="button">로그아웃</button>
 
 <a th:href="@{/articles/new}">
   <button>글 작성하기</button>
@@ -23,7 +24,8 @@
   <td th:text="${article.author}"></td>
     </tr>
 </table>
-
+<script type="module" src="/js/auth.js"></script>
+<script type="module" src="/js/logout.js"></script>
 
 </body>
 </html>

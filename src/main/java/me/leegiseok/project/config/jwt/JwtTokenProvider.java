@@ -62,6 +62,7 @@ public class JwtTokenProvider {
 
     }
     public  void validate(String token) {
+
         Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
     }
 

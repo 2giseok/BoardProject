@@ -10,27 +10,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public  String loginPage() {
+
+
         return "login/login";
     }
-    @PostMapping("/login")
+
+   /* @PostMapping("/login")
     public  String login(@ModelAttribute LoginRequest request, Model model) {
         try {
             LoginResponse response = userService.login(request);
             model.addAttribute("nickname", response.getNickname());
-            return "redirect:/article";
+            return "redirect:/articles";
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return "login/login";
         }
-    }
+    } */
 
     @GetMapping("/signup")
     public  String signupPage() {
@@ -40,7 +44,7 @@ public class UserController {
     @PostMapping("/signup")
     public  String signup(@ModelAttribute SignupRequest request) {
         userService.signup(request);
-        return "redirect:/signup/signup";
+        return "redirect:/login/login";
     }
 
 }
