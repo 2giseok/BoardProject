@@ -6,6 +6,7 @@ import me.leegiseok.project.dto.ArticleResponse;
 import me.leegiseok.project.repository.UserRepository;
 import me.leegiseok.project.service.ArticleService;
 import me.leegiseok.project.service.UserService;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RequiredArgsConstructor
+
 @Controller
 @RequestMapping("/articles")
+
 public class ArticleViewController {
     private final ArticleService articleService;
-    private final UserService userService;
-    private final UserRepository userRepository;
+
 
     @GetMapping
     public  String list(Model model) {

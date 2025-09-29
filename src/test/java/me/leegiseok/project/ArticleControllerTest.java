@@ -9,6 +9,7 @@ import me.leegiseok.project.domain.Article;
 import me.leegiseok.project.dto.AddArticleRequest;
 import me.leegiseok.project.dto.UpdateArticleRequest;
 import me.leegiseok.project.service.ArticleService;
+import me.leegiseok.project.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -33,10 +35,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers =  ArticlesApiController.class)
 @AutoConfigureMockMvc(addFilters = false)
+@ActiveProfiles("test")
 public class ArticleControllerTest {
     @MockitoBean JwtTokenProvider jwtTokenProvider;
     @MockitoBean
     JwtAuthFilter jwtAuthFilter;
+    @MockitoBean
+    UserService userService;
 
     @Autowired
     MockMvc mockMvc;
@@ -73,6 +78,7 @@ public class ArticleControllerTest {
     @Test
     @DisplayName("글 조회 200")
     void ArticleDetail() throws Exception {
+
         Article found =  Article.builder().title("제목").content("내용").build();
         given(articleService.findById(1L)).willReturn(found);
         mockMvc.perform(get("/api/articles/{id}",1L))
