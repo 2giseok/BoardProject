@@ -12,3 +12,4 @@ Swagger 문서화
 ### 2025.09.03 ~ 2025 09.04   auth 테스트 코드 작성
 ## 2025.09.29 - 라인 커버 70퍼 달성 
 
+<img width="1152" height="294" alt="image" src="https://github.com/user-attachments/assets/a3b44577-6928-4355-ba94-6099385743c6" />
