@@ -1,4 +1,4 @@
-## 간단한 게시판 백엔드에 보안 (인증 /인가)를 추가 하였습니다 JWT (REFRESH , ACCESS ) , Swagger와 mysql 기반으로 구현 하였고 oauth2 , aws, ci/cd까지 확장 에정 
+## 간단한 게시판 백엔드에 보안 (인증 /인가)를 추가 하였습니다 JWT (REFRESH , ACCESS ) , Swagger와 mysql 기반으로 구현
 
 ## 주요 기능 
 회원가입 /로그인 / 로그아웃
